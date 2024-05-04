@@ -720,29 +720,6 @@
         </div>
       </div>
     </section>
-    <!-- ===== Features Section End ===== -->
-
-    <!-- ===== About Section Start ===== -->
-    <!-- ===== About Section End ===== -->
-
-    <!-- ===== Team Section Start ===== -->
-    <!-- ===== Team Section End ===== -->
-
-    <!-- ===== Portfolio Section Start ===== -->
-    <!-- ===== Portfolio Section End ===== -->
-
-    <!-- ===== Testimonial Section Start ===== -->
-    <!-- ===== Testimonial Section End ===== -->
-
-    <!-- ====== Brands Section End -->
-
-    <!-- ===== Pricing Section Start ===== -->
-
-    <!-- ===== Pricing Section End ===== -->
-
-    <!-- ===== Blog Section Start ===== -->
-    <!-- ===== Blog Section End ===== -->
-
     <!-- ===== Support Section Start ===== -->
     <section id="support" class="pt-14 sm:pt-20 lg:pt-[130px]">
       <div class="px-4 xl:container">
@@ -998,10 +975,12 @@
                 class="mb-5 flex items-center justify-center space-x-5 border-b pb-5 dark:border-[#2E333D] md:mb-0 md:justify-start md:border-0 md:pb-0"
               >
                 <a
-                  href="javascript:void(0)"
+                  id="openModalBtn"
+                  href="blog-details.html"
+                  target="_blank"
                   class="font-heading text-base text-dark-text hover:text-primary"
                 >
-                  Quinto Digital - Tecnologia e Inovação
+                  Politicas de Privacidade
                 </a>
               </div>
             </div>
@@ -1078,13 +1057,13 @@
           })
           .then((data) => {
             console.log("Dados enviados com sucesso:", data);
-            const customAlert = document.getElementById('customAlert');
-            customAlert.classList.remove('hidden');
+            const customAlert = document.getElementById("customAlert");
+            customAlert.classList.remove("hidden");
 
             setTimeout(() => {
-              customAlert.classList.add('hidden');
+              customAlert.classList.add("hidden");
             }, 3000);
-            
+
             document.getElementById("name").value = "";
             document.getElementById("email").value = "";
             document.getElementById("phone").value = "";
@@ -1108,6 +1087,7 @@
       // section menu active
       function onScroll(event) {
         const sections = document.querySelectorAll(".menu-scroll");
+        console.log(sections, 'sections')
         const scrollPos =
           window.pageYOffset ||
           document.documentElement.scrollTop ||
