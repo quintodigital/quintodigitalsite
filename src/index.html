@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Quinto Digital - Tecnologia e Inovação" />
-    <meta name="keywords" content="inovação tecnológica, soluções digitais, avanços tecnológicos, tecnologia emergente, tendências em tecnologia, transformação digital, startups tecnológicas, desenvolvimento de software, inteligência artificial, IoT, blockchain, realidade virtual, realidade aumentada, computação em nuvem, segurança cibernética, tecnologia 5G, automação, robótica, futuro da tecnologia, sustentabilidade tecnológica" />
+    <meta
+      name="keywords"
+      content="inovação tecnológica, soluções digitais, avanços tecnológicos, tecnologia emergente, tendências em tecnologia, transformação digital, startups tecnológicas, desenvolvimento de software, inteligência artificial, IoT, blockchain, realidade virtual, realidade aumentada, computação em nuvem, segurança cibernética, tecnologia 5G, automação, robótica, futuro da tecnologia, sustentabilidade tecnológica"
+    />
     <title>Quinto Digital - Tecnologia e Inovação</title>
     <link rel="icon" href="images/fav.jpg" />
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.7/dist/inputmask.min.js"></script>
@@ -376,6 +379,16 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        id="customAlert"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+      >
+        <div class="bg-white p-8 rounded shadow-lg">
+          <p class="text-lg font-semibold text-gray-800">
+            Seu formulário foi enviado com sucesso!
+          </p>
         </div>
       </div>
       <div
@@ -832,12 +845,7 @@
         </div>
 
         <div class="mx-auto max-w-[780px] pt-[130px]">
-          <form
-            class="wow fadeInUp"
-            data-wow-delay=".2s"
-            action="https://formbold.com/s/unique_form_id"
-            method="POST"
-          >
+          <form id="contactForm" class="wow fadeInUp" data-wow-delay=".2s">
             <div class="-mx-4 flex flex-wrap">
               <div class="w-full px-4 sm:w-1/2">
                 <div class="mb-12">
@@ -1026,6 +1034,74 @@
       window.addEventListener("DOMContentLoaded", (event) => {
         Inputmask("+55 (99) 99999-9999").mask(document.getElementById("phone"));
       });
+    </script>
+
+    <script>
+      // Função para enviar os dados do formulário para a API
+      function enviarFormulario(event) {
+        // Evitar o envio padrão do formulário
+        event.preventDefault();
+
+        // Pegar os valores dos campos do formulário
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        // Objeto com os dados a serem enviados
+        const data = {
+          name: name,
+          email: email,
+          phone: phone,
+          subject: subject,
+          message: message,
+        };
+
+        // Configuração do fetch para enviar os dados para a API
+        fetch(
+          "https://quintodigital-email-a566846c38c1.herokuapp.com/contact",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        )
+          .then((response) => {
+            // Verificar se a resposta foi bem-sucedida
+            if (!response.ok) {
+              throw new Error("Erro ao enviar os dados.");
+            }
+            return response.json(); // Retorna os dados em formato JSON
+          })
+          .then((data) => {
+            console.log("Dados enviados com sucesso:", data);
+            const customAlert = document.getElementById('customAlert');
+            customAlert.classList.remove('hidden');
+
+            setTimeout(() => {
+              customAlert.classList.add('hidden');
+            }, 3000);
+            
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("subject").value = "";
+            document.getElementById("message").value = "";
+            // Aqui você pode adicionar a lógica para manipular a resposta da API, se necessário
+          })
+          .catch((error) => {
+            console.error("Erro ao enviar os dados:", error);
+            // Aqui você pode adicionar a lógica para lidar com erros no envio dos dados
+          });
+      }
+
+      // Adicionar um evento de escuta para o envio do formulário
+      document
+        .querySelector("form")
+        .addEventListener("submit", enviarFormulario);
     </script>
 
     <script>
